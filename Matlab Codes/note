@@ -1,26 +1,14 @@
-There are four types of files uploaded.
+There are three types of .m files uploaded.
 
 1. 4-point case files:
 CompKernelFrom4.m: the first way to compute kernel transformation.
 CompKernelFrom4_2.m: the second way to compute kernel transformation.
 ComputeHomo4.m: the complete function to compute homography which call the above two kernel functions.
-veri_4Pts.m: a script to verify the correctness of homographies computed by two different ways. 
-
 
 2. n-point case files:
 CompKernelFromN.m: the linear method to compute kernel transformation.
 ComputeHomoN.m: the complete function to compute homography which firstly call 'CompKernelFromN' as a linear solution, followed by a 1-step Gauss-Newton optimization. TAP are selected by ordered sampling.
-veri_NPts.m: a script to verify the correctness of homographies computed by the linear method and the optimization. 
 
-3. Simulation experiments files:
-ComputeHomo_DLT.m: function of NDLT implemention that follows "Multiple View Geometry in Computer Vision".
-simu_noise_chessboard.m: 1st simu experiment where grid points are used to estimate homography under different noises.
-simu_pose_chessboard.m: 2nd simu experiment where grid points are used to estimate homography under different poses.
-simu_numberPts_random.m: 3-1 simu experiment where random points with different numbers are used to estimate homography.
-simu_numberPts_100.m: 3-2 simu experiment where 100 random points are used to estimate homography under different sampling ways of TAP.
-ComputeHomoN_2.m: revise the ordered sampling of TAP to random sampling for comparison in 3-2 simu experiment.
-
-4. Draw real experiment file:
-ZUBUDreprojERROR5.txt: statistics results of ZubuD Dataset. 
-draw_real_results.m: a script to draw the figures shown in real experiments.
+3. test file:
+test_randomPattern.m: test SKS-I, SKS-II and SKS-n with coplanar random points.
 
