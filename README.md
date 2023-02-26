@@ -30,7 +30,7 @@ In SKS and ACA, each sub-transformation, and even each parameter of these transf
 
 ![image](imgs/SKS.png)
 
-![](imgs/ACA.png)
+![image3](imgs/ACA.png)
 
 
 
