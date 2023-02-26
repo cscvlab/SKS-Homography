@@ -30,9 +30,9 @@ In SKS and ACA, each sub-transformation, and even each parameter of these transf
 
 ![image](imgs/SKS.png)
 
-![image](imgs/SKS.png)
-
 ![image](imgs/ACA.png)
+
+![image](https://raw.githubusercontent.com/cscvlab/SKS-Homography/main/imgs/ACA.png?token=GHSAT0AAAAAAB7JGF6AJOXBMS555OQMOAL2Y73S7IA)
 
 
 ## Floating-point Operations (FLOPs)
