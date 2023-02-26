@@ -11,6 +11,7 @@ SKS decomposes a 2D homography into three sub-transformation:
 ```math
 \mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1}
 ```
+
 where $\mathbf{H}_{S_2}$ and $\mathbf{H}_{S_1}$ are similarity transformations induced by two arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion.  
 
 $\alpha$
