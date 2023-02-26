@@ -8,8 +8,9 @@ The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Pyt
 
 SKS decomposes a 2D homography into three sub-transformation: 
 
-```math
-H=H_{S_2}^{-1}*H_{K}*H_{S_1}
+$$
+\mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1}
+$$
 
 $\alpha$
 
