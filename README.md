@@ -12,7 +12,21 @@ SKS decomposes a 2D homography into three sub-transformation:
 \mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1}
 ```
 
-where $\mathbf{H}_{S_2}$ and $\mathbf{H}_{S_1}$ are similarity transformations induced by two arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion.  
+where $\mathbf{H}_{S_2}$ and $\mathbf{H}_{S_1}$ are similarity transformations induced by two arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
+
+## ACA Decomposition
+
+ACA also decomposes a 2D homography into three sub-transformation: 
+
+```math
+\mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1}
+```
+
+where $\mathbf{H}_{A_2}$ and $\mathbf{H}_{A_1}$ are affine transformations induced by three arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
+
+## Floating-point operations (FLOPs)
+
+Floating-point operations (FLOPs) of SKS:
 
 $\alpha$
 
