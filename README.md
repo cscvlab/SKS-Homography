@@ -28,7 +28,7 @@ where $\mathbf{H}_{A_2}$ and $\mathbf{H}_{A_1}$ are affine transformations induc
 
 Floating-point operations (FLOPs) of SKS:
 
-
+df
 fda 
 
 $\alpha$
