@@ -28,6 +28,8 @@ where $\mathbf{H}_{A_2}$ and $\mathbf{H}_{A_1}$ are affine transformations induc
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
 
+[image](imgs/SKS.png)
+
 ![image](imgs/SKS.png)
 
 ![image](imgs/ACA.png)
