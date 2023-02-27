@@ -1,5 +1,5 @@
 # SKS-ACA Decomposition of 2D Homography
-This repository is the offical implementation of the paper 
+This repository is the offical implementation of the paper: 
 
 **Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)**. 
 
@@ -32,7 +32,7 @@ The first figure actually introduce one kind of further decomposition of the ker
 
 ## Algebraic Simplicity
 ### No Need to Construct A Linear System of Equations
-Previous 4-point homography methods follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU.
+Previous 4-point homography methods follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU,
 ```math
 \mathbf{A}_{8*9}*\mathbf{h}_{9*1}=\mathbf{0} \quad \mathcal{or} \quad \mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}.
 ```
