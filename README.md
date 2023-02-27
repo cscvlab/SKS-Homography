@@ -1,7 +1,7 @@
 # SKS-ACA Decomposition of 2D Homography
-This repository is the offical implementation of the paper: 
+This repository is the offical implementation of the paper 
 
-**Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)}**. 
+**Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)**. 
 
 SKS and ACA are novel decomposition forms for 2D homography (projective transformation) matrices, which are superior to previous 4-point homography methods (NDLT-SVD, HO-SVD, GPT-LU, RHO-GE) in terms of computational efficiency, geometrical meaning of parameters, and unified management for various planar configurations. The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Python (with PyTorch library) procedures used in CPU and GPU experiments.
 [Project Page] [Paper] [Video]
@@ -34,7 +34,7 @@ The first figure actually introduce one kind of further decomposition of the ker
 ### No Need to Construct A Linear System of Equations
 Previous 4-point homography methods follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU.
 ```math
-\mathbf{A}_{8*9}*\mathbf{h}_{9*1}=\mathbf{0} \quad or \quad \mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}.
+\mathbf{A}_{8*9}*\mathbf{h}_{9*1}=\mathbf{0} \quad \mathcal{or} \quad \mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}.
 ```
 Such approachs are circuitous since the constructed coefficient matrix $\mathbf{A}$ is redundant (including a number of 0 and 1). Conversely, SKS and ACA directly compute the sub-transformations of homography in a stratified way. 
 
