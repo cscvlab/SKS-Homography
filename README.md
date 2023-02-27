@@ -53,7 +53,7 @@ All previous 4-point offsets based deep homography methods compute the homograph
 
 ## Experiments
 ### CPU Runtime
-Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {477$\textit{x}$, 466\textit{x}, $28$\textit{x}\} and \{$731$\textit{x}, $713$\textit{x}, $43$\textit{x}\} respectively under 'O2' compiler optimization.
+Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {477x, 466x, 28x} and \{731x, 713x, 43x} respectively under 'O2' compiler optimization.
 ![image](imgs/CPU-runtime.png)
 ### GPU Runtime
 ![image](imgs/GPU-runtime.png)
