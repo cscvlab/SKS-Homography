@@ -6,34 +6,27 @@ The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Pyt
 
 ## SKS Decomposition
 SKS decomposes a 2D homography into three sub-transformation: 
-
 ```math
 \mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1},
 ```
-
 where $\mathbf{H}_{S_1}$ and $\mathbf{H}_{S_2}$ are similarity transformations induced by two arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
 
 ## ACA Decomposition
 ACA also decomposes a 2D homography into three sub-transformation: 
-
 ```math
 \mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1},
 ```
-
 where $\mathbf{H}_{A_1}$ and $\mathbf{H}_{A_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
-
 ![image](imgs/SKS.png)
-
 ![image3](imgs/ACA.png){width=400px height=400px}
 
 The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., 
 ```math
 \mathbf{H}_{K}=\mathbf{H}_{E}^{-1}\mathbf{H}^{-1}_{T_2}\mathbf{H}_{G}\mathbf{H}_{T_1}\mathbf{H}_{E}.
 ```
-
 
 ## Algebraic Simplicity
 ### No Need to Construct A Linear System of Equations
@@ -54,17 +47,19 @@ Polynomial expression of each element of homography is easily obtained in our de
 where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 
 ### Homographies Mapping A Rectangle to A Quadrangle
-All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Correspondingly, FLOPs for a source square will be reduced to 44 FLOPs.
+All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 44 FLOPs.
 
 ![image](imgs/ACA-rect.png){width=400px height=400px}
 
 ## Experiments
-
-![image](imgs/CPU-runtime.png)
-![image](imgs/GPU-runtime.png)
 ### CPU Runtime
-dfkjj
+Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents \{477\textit{x}, 466\textit{x}, $28$\textit{x}\} and \{$731$\textit{x}, $713$\textit{x}, $43$\textit{x}\} respectively under 'O2' compiler optimization.
+![image](imgs/CPU-runtime.png)
 ### GPU Runtime
+![image](imgs/GPU-runtime.png)
+
+dfkjj
+
 fda 
 
 $\alpha$
