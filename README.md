@@ -54,7 +54,7 @@ Polynomial expression of each element of homography is easily obtained in our de
 where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 
 ### Homographies Mapping A Rectangle to A Quadrangle
-All previous 4-point offsets based deep homography methods compute the homography mapping a square~\cite{UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22} or rectangle~\cite{UDIS_TIP21}~\cite{CAUDHN_ECCV20} in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). For square, FLOPs will be reduced to 44 FLOPs.
+All previous 4-point offsets based deep homography methods compute the homography mapping a square~\cite{UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22} or rectangle~\cite{UDIS_TIP21}~\cite{CAUDHN_ECCV20} in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). For a square, FLOPs will be reduced to 44 FLOPs.
 
 ![image](imgs/ACA-rect.png){width=400px height=400px}
 
