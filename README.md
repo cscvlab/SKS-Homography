@@ -11,7 +11,7 @@ SKS decomposes a 2D homography into three sub-transformation:
 \mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1}
 ```
 
-where $\mathbf{H}_{S_2}$ and $\mathbf{H}_{S_1}$ are similarity transformations induced by two arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
+where $\mathbf{H}_{S_1}$ and $\mathbf{H}_{S_2}$ are similarity transformations induced by two arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
 
 ## ACA Decomposition
 ACA also decomposes a 2D homography into three sub-transformation: 
@@ -20,7 +20,7 @@ ACA also decomposes a 2D homography into three sub-transformation:
 \mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1}
 ```
 
-where $\mathbf{H}_{A}$ and $\mathbf{H}_{A_1}$ are affine transformations induced by three arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
+where $\mathbf{H}_{A_1}$ and $\mathbf{H}_{A_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
@@ -28,6 +28,8 @@ In SKS and ACA, each sub-transformation, and even each parameter of these transf
 ![image](imgs/SKS.png)
 
 ![image3](imgs/ACA.png){width=400px height=400px}
+
+The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., $\mathbf{H}_{K}=\mathbf{H}_{E}^{-1}\mathbf{H}^{-1}_{T_2}\mathbf{H}_{G}\mathbf{H}_{T_1}\mathbf{H}_{E}$. 
 
 
 ## Algebraic Simplicity
