@@ -8,7 +8,7 @@ The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Pyt
 SKS decomposes a 2D homography into three sub-transformation: 
 
 ```math
-\mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1}
+\mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1},
 ```
 
 where $\mathbf{H}_{S_1}$ and $\mathbf{H}_{S_2}$ are similarity transformations induced by two arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
@@ -17,7 +17,7 @@ where $\mathbf{H}_{S_1}$ and $\mathbf{H}_{S_2}$ are similarity transformations i
 ACA also decomposes a 2D homography into three sub-transformation: 
 
 ```math
-\mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1}
+\mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1},
 ```
 
 where $\mathbf{H}_{A_1}$ and $\mathbf{H}_{A_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
@@ -36,10 +36,19 @@ The first figure actually introduce one kind of further decomposition of the ker
 
 
 ## Algebraic Simplicity
-### Floating-point Operations (FLOPs)
-FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 and 85 respectively.
+### Division-Free Solver 
+ACA is extremely concise in algebra and only need 85 addtions, subtractions and multiplications of floating-point numbers to compute homographies up to a scale. Among four arithmetic operations, the most complicated division is avoided in ACA. 
 
-### Polynomial Expression of Each Parameter
+### Floating-point Operations (FLOPs)
+FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 and 85 respectively. With the normalization based on the last element of homography, FLOPs of SKS and ACA are 169 and 97 respectively. Compared with commonly used robust 4-point homography solvers NDLT-SVD (>27K FLOPs) and GPT-LU (~1950 FLOPs), SKS and ACA represent {162x, 12x} and {282x, 20x}, respectively.
+
+### Polynomial Expression of Each Element of Homography
+Polynomial expression of each element of homography is easily obtained in our derivation, which is given by 
+```math
+\mathbf{H} = \begin{bmatrix} \mathcal{F}_{11}^8 & \mathcal{F}_{12}^8 & \mathcal{F}_{13}^9 \\
+\mathcal{F}_{21}^8 & \mathcal{F}_{22}^8 & \mathcal{F}_{23}^9  \\ \mathcal{F}_{31}^7 & \mathcal{F}_{32}^7 & \mathcal{F}_{33}^8 \end{bmatrix},
+```
+where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 
 ### Homographies Mapping A Rectangle to A Quadrangle
 
