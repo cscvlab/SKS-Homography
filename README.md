@@ -1,5 +1,5 @@
 # SKS-ACA Decomposition of 2D Homography
-This repository is the offical implementation of the paper: 
+This repository is the official implementation of the paper: 
 
 **Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)**. 
 
