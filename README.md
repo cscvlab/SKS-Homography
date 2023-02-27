@@ -30,7 +30,7 @@ The first figure actually introduce one kind of further decomposition of the ker
 
 ## Algebraic Simplicity
 ### No Need to Construct A Linear System of Equations
-Previous methods 
+Previous methods follow the same way to construct a square system of linear equations $$ or $\mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}$.
 
 ### Division-Free Solver 
 ACA is extremely concise in algebra and only need 85 addtions, subtractions and multiplications of floating-point numbers to compute homographies up to a scale. Among four arithmetic operations, the most complicated division is avoided in ACA. 
@@ -57,13 +57,8 @@ Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) an
 conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which severely influence the speed. 
 ![image](imgs/CPU-runtime.png)
 ### GPU Runtime
-Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core.
+Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers ($\leq10$K) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
 ![image](imgs/GPU-runtime.png)
 From the tables, the fastest ACA algorithm can run about $\textbf{70M}$ times on CPU and $\textbf{4G}$ times on GPU.
 
-dfkjj
-
-fda 
-
-$\alpha$
 
