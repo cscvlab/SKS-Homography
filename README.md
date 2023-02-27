@@ -29,7 +29,7 @@ In SKS and ACA, each sub-transformation, and even each parameter of these transf
 
 ![image3](imgs/ACA.png){width=400px height=400px}
 
-The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., $\mathbf{H}_{K}=\mathbf{H}_{E}^{-1}\mathbf{H}^{-1}_{T_2}\mathbf{H}_{G}\mathbf{H}_{T_1}\mathbf{H}_{E}$. 
+The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., $$\mathbf{H}_{K}=\mathbf{H}_{E}^{-1}\mathbf{H}^{-1}_{T_2}\mathbf{H}_{G}\mathbf{H}_{T_1}\mathbf{H}_{E}.$$ 
 
 
 ## Algebraic Simplicity
