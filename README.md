@@ -1,8 +1,9 @@
 # SKS-ACA Decomposition of 2D Homography
-This is the offical implementation of the paper: 
+This repository is the offical implementation of the paper: 
+
 **Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)}**. 
 
-SKS and ACA are novel decomposition forms for 2D homography (projective transformation) matrices, which are superior to previous methods (NDLT-SVD, HO-SVD, GPT-LU, RHO-GE) in terms of computational efficiency, geometrical meaning of parameters, and unified management for various planar configurations. The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Python (with PyTorch library) procedures used in CPU and GPU experiments.
+SKS and ACA are novel decomposition forms for 2D homography (projective transformation) matrices, which are superior to previous 4-point homography methods (NDLT-SVD, HO-SVD, GPT-LU, RHO-GE) in terms of computational efficiency, geometrical meaning of parameters, and unified management for various planar configurations. The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Python (with PyTorch library) procedures used in CPU and GPU experiments.
 [Project Page] [Paper] [Video]
 
 ## SKS Decomposition
@@ -17,7 +18,7 @@ ACA also decomposes a 2D homography into three sub-transformation:
 ```math
 \mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1},
 ```
-where $\mathbf{H}_{A_1}$ and $\mathbf{H}_{A_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
+where $\mathbf{H}_{A_1}$ and $\mathbf{H}_{A_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}\_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
@@ -64,6 +65,6 @@ conditional branch judgments, data copy or exchange, OpenCV data structures, etc
 ### GPU Runtime
 Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers ($\leq10$K) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
 ![image](imgs/GPU-runtime.png)
-From the tables, the fastest ACA algorithm can run about $\textbf{70M}$ times on CPU and $\textbf{4G}$ times on GPU.
+From the tables, the fastest ACA algorithm can run about **70M** times on CPU and **4G** times on GPU.
 
 
