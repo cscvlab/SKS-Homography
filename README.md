@@ -20,7 +20,7 @@ ACA also decomposes a 2D homography into three sub-transformation:
 \mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1}
 ```
 
-where $\mathbf{H}_{A_2}$ and $\mathbf{H}_{A_1}$ are affine transformations induced by three arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
+where $\mathbf{H}_{A}$ and $\mathbf{H}_{A_1}$ are affine transformations induced by three arbitrary points on target plane and source plane, respectively; $\mathbf{H}_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
