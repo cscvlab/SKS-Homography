@@ -11,14 +11,14 @@ SKS decomposes a 2D homography into three sub-transformation:
 ```math
 \mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1},
 ```
-where $\mathbf{H}_{S_1}$ and $\mathbf{H}_{S_2}$ are similarity transformations induced by two arbitrary points on source plane and target plane, respectively; $\mathbf{H}_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
+where $\mathbf{H}\_{S\_1}$ and $\mathbf{H}\_{S\_2}$ are similarity transformations induced by two arbitrary points on source plane and target plane, respectively; $\mathbf{H}\_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
 
 ## ACA Decomposition
 ACA also decomposes a 2D homography into three sub-transformation: 
 ```math
 \mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1},
 ```
-where $\mathbf{H}_{A_1}$ and $\mathbf{H}_{A_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}\_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
+where $\mathbf{H}\_{A\_1}$ and $\mathbf{H}\_{A\_2}$ are affine transformations induced by three arbitrary points on source plane and target plane, respectively; $\mathbf{H}\_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
@@ -34,7 +34,7 @@ The first figure actually introduce one kind of further decomposition of the ker
 ### No Need to Construct A Linear System of Equations
 Previous 4-point homography methods follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU.
 ```math
-\mathbf{A}_{8*9}*\mathbf{h}_{9*1}=\mathbf{0} \quad \textbf{or} \quad \mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}.
+\mathbf{A}_{8*9}*\mathbf{h}_{9*1}=\mathbf{0} \quad or \quad \mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}.
 ```
 Such approachs are circuitous since the constructed coefficient matrix $\mathbf{A}$ is redundant (including a number of 0 and 1). Conversely, SKS and ACA directly compute the sub-transformations of homography in a stratified way. 
 
