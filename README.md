@@ -53,10 +53,13 @@ All previous 4-point offsets based deep homography methods compute the homograph
 
 ## Experiments
 ### CPU Runtime
-Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {477x, 466x, 28x} and \{731x, 713x, 43x} respectively under 'O2' compiler optimization.
+Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {488x, 477x, 29x} and {731x, 713x, 43x} respectively under 'O2' compiler optimization. These numbers are bigger than FLOPs ratios as their implementations in OpenCV include more or less
+conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which severely influence the speed. 
 ![image](imgs/CPU-runtime.png)
 ### GPU Runtime
+Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core.
 ![image](imgs/GPU-runtime.png)
+From the tables, the fastest ACA algorithm can run about $\textbf{70M}$ times on CPU and $\textbf{4G}$ times on GPU.
 
 dfkjj
 
