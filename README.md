@@ -44,7 +44,7 @@ Such approachs are circuitous since the constructed coefficient matrix $\mathbf{
 ACA is extremely concise in algebra and only requires 85 addtions, subtractions and multiplications of floating-point numbers to compute homographies up to a scale. Among four arithmetic operations, the most complicated division is avoided in ACA. 
 
 ### Floating-point Operations (FLOPs)
-FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 and 85 respectively. With the normalization based on the last element of homography, FLOPs of SKS and ACA are 169 and 97 respectively. Compared with commonly used robust 4-point homography solvers NDLT-SVD ($\ge27K$ FLOPs) and GPT-LU (~1950 FLOPs), SKS and ACA represent {162x, 12x} and {282x, 20x}, respectively.
+FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 and 85 respectively. With the normalization based on the last element of homography, FLOPs of SKS and ACA are 169 and 97 respectively. Compared with commonly used robust 4-point homography solvers NDLT-SVD ($\ge$27K FLOPs) and GPT-LU (~1950 FLOPs), SKS and ACA represent {162x, 12x} and {282x, 20x}, respectively.
 
 ### Polynomial Expression of Each Element of Homography
 Polynomial expression of each element of homography is easily obtained in our derivation, which is given by 
@@ -57,7 +57,7 @@ where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 ### Homographies Mapping A Rectangle to A Quadrangle
 All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 44 FLOPs.
 
-<div align="center"> <img src="imgs/ACA-rect.png" width = 40% /> </div>
+<div align="center"> <img src="imgs/ACA-rect.png" width = 50% /> </div>
 
 ## Experiments
 ### CPU Runtime
