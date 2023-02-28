@@ -67,7 +67,7 @@ Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) an
 conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which severely influence the speed. 
 ![image](imgs/CPU-runtime.png)
 ### GPU Runtime
-Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers ($\leq10$K) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
+Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  $(\leq 10 K)$ of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
 ![image](imgs/GPU-runtime.png)
 From the tables, the fastest ACA algorithm can run about **70M** times on CPU and **4G** times on GPU.
 
