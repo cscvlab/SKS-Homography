@@ -22,8 +22,10 @@ where $\mathbf{H}\_{A\_1}$ and $\mathbf{H}\_{A\_2}$ are affine transformations i
 
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
-![image](imgs/SKS.png)
-![image3](imgs/ACA.png){width=400px height=400px}
+
+ <div align="center"> <img src="imgs/SKS.png" width = 100% /> </div> 
+ 
+ <div align="center"> <img src="imgs/ACA.png" width = 50% /> </div>
 
 The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., 
 ```math
@@ -55,7 +57,9 @@ where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 ### Homographies Mapping A Rectangle to A Quadrangle
 All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 44 FLOPs.
 
-![image](imgs/ACA-rect.png){width=400px height=400px}
+
+
+<div align="center"> <img src="imgs/ACA-rect.png" width = 70% /> </div>
 
 ## Experiments
 ### CPU Runtime
