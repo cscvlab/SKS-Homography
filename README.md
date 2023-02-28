@@ -27,7 +27,7 @@ In SKS and ACA, each sub-transformation, and even each parameter of these transf
  
  <div align="center"> <img src="imgs/ACA.png" alt="ACA decomposition process" width = 40% /> </div>
 
-The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., 
+The first figure actually introduces one kind of further decomposition of the kernel transformation, i.e., 
 ```math
 \mathbf{H}_{K}=\mathbf{H}_{E}^{-1}\mathbf{H}^{-1}_{T_2}\mathbf{H}_{G}\mathbf{H}_{T_1}\mathbf{H}_{E}.
 ```
@@ -67,7 +67,7 @@ conditional branch judgments, data copy or exchange, OpenCV data structures, etc
 <div align="center"> <img src="imgs/CPU-runtime.png" width = 80% /> </div>
 
 ### GPU Runtime
-Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  ($\leq$**10K**) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
+Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each 4-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  ($\leq$10K) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
 
 <div align="center"> <img src="imgs/GPU-runtime.png" width = 80% /> </div>
 
