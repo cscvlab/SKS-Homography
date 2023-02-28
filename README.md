@@ -57,8 +57,6 @@ where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 ### Homographies Mapping A Rectangle to A Quadrangle
 All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 44 FLOPs.
 
-
-
 <div align="center"> <img src="imgs/ACA-rect.png" width = 70% /> </div>
 
 ## Experiments
@@ -67,7 +65,7 @@ Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) an
 conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which severely influence the speed. 
 ![image](imgs/CPU-runtime.png)
 ### GPU Runtime
-Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  $(\leq 10 K)$ of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
+Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  ($\leq$**10K**) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
 ![image](imgs/GPU-runtime.png)
 From the tables, the fastest ACA algorithm can run about **70M** times on CPU and **4G** times on GPU.
 
