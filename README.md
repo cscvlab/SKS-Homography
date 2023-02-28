@@ -1,4 +1,4 @@
-# SKS-ACA Decomposition of 2D Homography
+# SKS & ACA Decomposition of 2D Homography
 This repository is the official implementation of the paper: 
 
 **Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)**. 
@@ -23,9 +23,9 @@ where $\mathbf{H}\_{A\_1}$ and $\mathbf{H}\_{A\_2}$ are affine transformations i
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process is shown in the following figures.
 
- <div align="center"> <img src="imgs/SKS.png" width = 100% /> </div> 
+ <div align="center"> <img src="imgs/SKS.png" width = 80% /> </div> 
  
- <div align="center"> <img src="imgs/ACA.png" width = 50% /> </div>
+ <div align="center"> <img src="imgs/ACA.png" width = 40% /> </div>
 
 The first figure actually introduce one kind of further decomposition of the kernel transformation, i.e., 
 ```math
@@ -57,16 +57,16 @@ where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
 ### Homographies Mapping A Rectangle to A Quadrangle
 All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous method treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 44 FLOPs.
 
-<div align="center"> <img src="imgs/ACA-rect.png" width = 70% /> </div>
+<div align="center"> <img src="imgs/ACA-rect.png" width = 60% /> </div>
 
 ## Experiments
 ### CPU Runtime
 Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {488x, 477x, 29x} and {731x, 713x, 43x} respectively under 'O2' compiler optimization. These numbers are bigger than FLOPs ratios as their implementations in OpenCV include more or less
 conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which severely influence the speed. 
-![image](imgs/CPU-runtime.png)
+<div align="center"> <img src="imgs/CPU-runtime.png" width = 80% /> </div>
 ### GPU Runtime
 Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each $4$-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  ($\leq$**10K**) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
-![image](imgs/GPU-runtime.png)
+<div align="center"> <img src="imgs/GPU-runtime.png" width = 80% /> </div>
 From the tables, the fastest ACA algorithm can run about **70M** times on CPU and **4G** times on GPU.
 
 
