@@ -33,6 +33,8 @@ The first figure actually introduces one kind of further decomposition of the ke
 ```
 
 ## Algebraic Simplicity
+SKS and ACA exhibit many unique properties in algebra, some of which are shown below.
+
 ### No Need to Construct A Linear System of Equations
 Previous 4-point homography methods follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU,
 ```math
