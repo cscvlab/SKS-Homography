@@ -1,14 +1,8 @@
-There are three types of .m files uploaded.
+There are four .m files uploaded.
 
-1. 4-point case files:
-CompKernelFrom4.m: the first way to compute kernel transformation.
-CompKernelFrom4_2.m: the second way to compute kernel transformation.
-ComputeHomo4.m: the complete function to compute homography which call the above two kernel functions.
+SKS.m: SKS decomposition function
+ACA.m: ACA decomposition function
+ACA-rect.m: ACA decomposition function. Special simplification for a source rectangle (often appears in deep homography estimation)
 
-2. n-point case files:
-CompKernelFromN.m: the linear method to compute kernel transformation.
-ComputeHomoN.m: the complete function to compute homography which firstly call 'CompKernelFromN' as a linear solution, followed by a 1-step Gauss-Newton optimization. TAP are selected by ordered sampling.
-
-3. test file:
-test_randomPattern.m: test SKS-I, SKS-II and SKS-n with coplanar random points.
+veri_4Pts.m: a simple verification script of the above three functions
 
