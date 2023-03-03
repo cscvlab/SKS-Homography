@@ -2,7 +2,7 @@ There are four .m files uploaded.
 
 SKS.m: SKS decomposition function
 ACA.m: ACA decomposition function
-ACA-rect.m: ACA decomposition function. Special simplification for a source rectangle (often appears in deep homography estimation)
+ACA-rect.m: ACA decomposition function with special simplification for a source rectangle (often appears in deep homography estimation)
 
-veri_4Pts.m: a simple verification script of the above three functions
+veri_4Pts.m: simple verification script of the above three functions
 
