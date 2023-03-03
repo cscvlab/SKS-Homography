@@ -64,7 +64,7 @@ All previous 4-point offsets based deep homography methods compute the homograph
 ## Experiments
 ### CPU Runtime
 Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {488x, 477x, 29x} and {731x, 713x, 43x} respectively under 'O2' compiler optimization. These numbers are bigger than FLOPs ratios as their implementations in OpenCV include more or less
-conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which severely influence the speed. 
+conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which may severely influence the speed. 
 
 <div align="center"> <img src="imgs/CPU-runtime.png" width = 80% /> </div>
 
