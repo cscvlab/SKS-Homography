@@ -7,14 +7,14 @@ SKS and ACA are novel decomposition forms for 2D homography (projective transfor
 [Project Page] [Paper] [Video]
 
 ## SKS Decomposition
-SKS decomposes a 2D homography into three sub-transformation: 
+SKS decomposes a 2D homography into three sub-transformations: 
 ```math
 \mathbf{H}=\mathbf{H}_{S_2}^{-1}*\mathbf{H}_{K}*\mathbf{H}_{S_1},
 ```
 where $\mathbf{H}\_{S\_1}$ and $\mathbf{H}\_{S\_2}$ are similarity transformations induced by two arbitrary points on source plane and target plane, respectively; $\mathbf{H}\_{K}$ is the 4-DOF kernel transfromation we defined, which generates projective distortion between two similarity-normalized planes. 
 
 ## ACA Decomposition
-ACA also decomposes a 2D homography into three sub-transformation: 
+ACA also decomposes a 2D homography into three sub-transformations: 
 ```math
 \mathbf{H}=\mathbf{H}_{A_2}^{-1}*\mathbf{H}_{C}*\mathbf{H}_{A_1},
 ```
