@@ -1,3 +1,7 @@
+%% A MATLAB code of Cai's homography solver ACA [1].
+% This software will only be used for non-commercial research purposes. See License.md.
+% For commercial use, please contact the authors.
+
 %  Affine-Core-Affine (ACA) Decomposition of 2D homographies:
 %
 %              H = H_A2^(-1) * H_C * H_A1
@@ -10,9 +14,9 @@
 %              Both of them (3*4 matrices) are represented in homogeneous coordinates.
 %  Outputs: H --- homography between source and target planes  with normalization of the last element;
 
-%  License
-%
-%
+% REFERENCE:
+%   [1] S. Cai, et al., "Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) 
+%        and Affine-Core-Affine (ACA)", submitted.
 
 
 function [ H ] = ACA ( SourcePts, TargetPts )

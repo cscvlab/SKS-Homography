@@ -1,3 +1,7 @@
+%% A MATLAB code of Cai's homography solver SKS [1].
+% This software will only be used for non-commercial research purposes. See License.md.
+% For commercial use, please contact the authors.
+
 %  Similarity-Kernel-Similarity (SKS) Decomposition of 2D homographies:
 %
 %              H = H_S2^(-1) * H_K * H_S1 = H_S2^(-1) * H_E * H_T2_inv * H_G * H_T1 * H_E * H_S1
@@ -10,9 +14,9 @@
 %              Both of them (3*4 matrices) are represented in homogeneous coordinates with the last elements 1.
 %  Outputs: H --- homography between source and target planes  with normalization of the last element;
 
-%  License
-%
-%
+% REFERENCE:
+%   [1] S. Cai, et al., "Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) 
+%        and Affine-Core-Affine (ACA)", submitted.
 
 
 function [ H ] = SKS ( SourcePts, TargetPts )

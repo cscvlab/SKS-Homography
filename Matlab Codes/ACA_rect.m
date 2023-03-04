@@ -1,3 +1,7 @@
+%% A MATLAB code of Cai's homography solver ACA-rect/TensorACA [1].
+% This software will only be used for non-commercial research purposes. See License.md.
+% For commercial use, please contact the authors.
+
 %  Affine-Core-Affine (ACA) Decomposition of 2D homographies for a rectangle on source plane
 %
 %              H = H_A2^(-1) * H_C * H_A1
@@ -10,9 +14,9 @@
 %              width, ratio_rec --- width and ratio aspect of source rectangle;
 %  Outputs: H --- homography between source and target planes;
 
-%  License
-%
-%
+% REFERENCE:
+%   [1] S. Cai, et al., "Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) 
+%        and Affine-Core-Affine (ACA)", submitted.
 
 
 function [ H ] = ACA_rect ( TargetPts,  M_x, M_y, width, ratio_rec )
