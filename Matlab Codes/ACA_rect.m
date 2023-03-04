@@ -33,7 +33,7 @@ function [ H ] = ACA_rect ( TargetPts,  M_x, M_y, width, ratio_rec )
     % normalization based on the last element of H, 12 flops
     % in deep homography pipeline, this step can be removed as the
     % possible subsequent image warping does not require normalization.
-    H =H ./ H(3,3);
+    H = H ./ H(3,3);
     
 end
 

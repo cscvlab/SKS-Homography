@@ -124,7 +124,7 @@ function [ H ] = SKS ( SourcePts, TargetPts )
     % the final multiplication H = H_L * H_S1 actually has 33 flops, as there are two zero elements in  H_S1
     
     % if necessary, normalization based on the last element of H, 12 flops
-    H =H ./ H(3,3);
+    H = H ./ H(3,3);
   
 end
 

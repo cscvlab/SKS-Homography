@@ -94,7 +94,7 @@ function [ H ] = ACA ( SourcePts, TargetPts )
 	%			 [ H2_31    H2_32             f_A1*C_33-H2_31*M1(1)-H2_32*M1(2)      ]
     
     % if necessary, normalization based on the last element of H, 12 flops
-    H =H ./ H(3,3);
+    H = H ./ H(3,3);
     
 end
 
