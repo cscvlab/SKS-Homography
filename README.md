@@ -21,7 +21,7 @@ ACA also decomposes a 2D homography into three sub-transformations:
 where $\mathbf{H}\_{A\_1}$ and $\mathbf{H}\_{A\_2}$ are affine transformations induced by three arbitrary pairs of corresponding points on source plane and target plane, respectively; $\mathbf{H}\_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
 ## Geometric Meanings
-In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process of SKS is shown below.
+In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process of SKS follows the philosophy of symmetry as shown below.
 
  <div align="center"> <img src="imgs/SKS.png" alt="SKS decomposition process" width = 80% /> </div> 
  
