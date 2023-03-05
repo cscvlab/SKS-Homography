@@ -75,6 +75,6 @@ Runtime of multiple homographies computation in parallel on GPU is meaningful fo
 
 <div align="center"> <img src="imgs/GPU-runtime.png" width = 80% /> </div>
 
-From the tables, the fastest ACA algorithm can run about **70M** times on CPU and **4G** times on GPU.
+From the tables, the fastest ACA algorithm can run about **70M** and **4G** times on the tested CPU and GPU respectively.
 
 
