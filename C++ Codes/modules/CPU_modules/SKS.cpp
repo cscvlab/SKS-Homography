@@ -33,9 +33,9 @@ For commercial use, please contact the authors.
         and Affine-Core-Affine (ACA)", submitted.
 */
 
-#include "SKS.h"
+#include "SKS.hpp"
 
-namespace cv::sks {
+namespace sks {
 
 /*
     Affine-Core-Affine (ACA) Decomposition of 2D homography:
@@ -291,8 +291,8 @@ namespace cv::sks {
 		temp3 = q7_f / (temp3 * q8_f);      // 5
 		float a_K = temp1 * temp3;        // 1
 		float b_K = temp2 * temp3;        // 1
-		float u_K = p6_x - a * p5_x - b * p5_y;    // 4
-		float v_K = p6_y - a * p5_y - b * p5_x;    // 4
+		float u_K = p6_x - a_K * p5_x - b_K * p5_y;    // 4
+		float v_K = p6_y - a_K * p5_y - b_K * p5_x;    // 4
 
         // compute the first two rows H_L = H_S2_inv * H_K, 0 flops
         //          [ b_K * o2_x + a_K * w2_x    w2_y + o2_x * v_K + u_K * w2_x    a_K * o2_x + b_K * w2_x ]
@@ -406,8 +406,8 @@ namespace cv::sks {
 		temp3 = q7_f / (temp3 * q8_f);      // 5
 		double a_K = temp1 * temp3;        // 1
 		double b_K = temp2 * temp3;        // 1
-		double u_K = p6_x - a * p5_x - b * p5_y;    // 4
-		double v_K = p6_y - a * p5_y - b * p5_x;    // 4
+		double u_K = p6_x - a_K * p5_x - b_K * p5_y;    // 4
+		double v_K = p6_y - a_K * p5_y - b_K * p5_x;    // 4
 
         // compute the first two rows H_L = H_S2_inv * H_K, 0 flops
         //          [ b_K * o2_x + a_K * w2_x    w2_y + o2_x * v_K + u_K * w2_x    a_K * o2_x + b_K * w2_x ]

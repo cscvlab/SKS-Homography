@@ -26,8 +26,11 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Copy OpenCV's namespace HomographyHO, Here change its name to namespace cv::my_ho
 // https://github.com/opencv/opencv/blob/17234f82d025e3bbfbf611089637e5aa2038e7b8/modules/calib3d/src/ippe.cpp line 866
-namespace cv::my_ho {
-    void normalizeDataIsotropic(InputArray _Data, OutputArray _DataN, OutputArray _T, OutputArray _Ti)
+
+using namespace cv;
+
+namespace my_ho {
+    void my_normalizeDataIsotropic(InputArray _Data, OutputArray _DataN, OutputArray _T, OutputArray _Ti)
     {
         Mat Data = _Data.getMat();
         int numPoints = Data.rows * Data.cols;
@@ -145,13 +148,12 @@ namespace cv::my_ho {
         Ti.at<double>(2, 2) = 1;
     }
 
-
-    void homographyHO(InputArray _srcPoints, InputArray _targPoints, Matx33d& H)
+    void my_homographyHO(InputArray _srcPoints, InputArray _targPoints, Matx33d& H)
     {
         Mat DataA, DataB, TA, TAi, TB, TBi;
 
-        normalizeDataIsotropic(_srcPoints, DataA, TA, TAi);
-        normalizeDataIsotropic(_targPoints, DataB, TB, TBi);
+        my_normalizeDataIsotropic(_srcPoints, DataA, TA, TAi);
+        my_normalizeDataIsotropic(_targPoints, DataB, TB, TBi);
 
         int n = DataA.cols;
         CV_Assert(n == DataB.cols);

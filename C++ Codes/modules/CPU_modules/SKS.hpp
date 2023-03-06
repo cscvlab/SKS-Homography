@@ -5,7 +5,7 @@
 #include "opencv2/core.hpp"
 
 
-namespace cv::sks {
+namespace sks {
 
 	/**
 	* Input the correct corresponding points, for example, the SIFT keypoint.

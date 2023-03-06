@@ -3,9 +3,9 @@
 #define __OPENCV_HO_H__
 #include <opencv2/core.hpp>
 
-namespace cv::my_ho
+namespace my_ho
 {
-	void homographyHO(InputArray _srcPoints, InputArray _targPoints, Matx33d& H);
+	void my_homographyHO(cv::InputArray _srcPoints, cv::InputArray _targPoints, cv::Matx33d& H);
 }
 
 #endif
