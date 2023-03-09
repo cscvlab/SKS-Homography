@@ -5,7 +5,7 @@
 
 namespace my_ho
 {
-	void my_homographyHO(cv::InputArray _srcPoints, cv::InputArray _targPoints, cv::Matx33d& H);
+	void runKernel_HO(cv::InputArray _srcPoints, cv::InputArray _targPoints, cv::Matx33d& H);
 }
 
 #endif
