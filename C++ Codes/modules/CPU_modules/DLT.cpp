@@ -47,7 +47,7 @@ using namespace cv;
 // Copy OpenCV's function runKernel. Here change its name to runKernel_DLT.
 // https://github.com/opencv/opencv/blob/4.x/modules/calib3d/src/fundam.cpp line 118
 
-// Total cost: 214N + 8894 flops. N is the number of points.
+// Total cost: >=27400 flops. N is the number of points.
 namespace cv
 {
     int runKernel_DLT(InputArray _m1, InputArray _m2, OutputArray _model)
@@ -108,9 +108,9 @@ namespace cv
                 for (k = j; k < 9; k++)
                     LtL[j][k] += Lx[j] * Lx[k] + Ly[j] * Ly[k];
         }
-        completeSymm(_LtL);
+        completeSymm(_LtL);  // no flops but time-consuming
 
-        eigen(_LtL, matW, matV);   // 12*9*9*9=8748 flops
+        eigen(_LtL, matW, matV);   // about 36*N^3 flops
         _Htemp = _invHnorm * _H0;    // 5*3*3=45 flops
         _H0 = _Htemp * _Hnorm2;      // 45 flops
         _H0.convertTo(_model, _H0.type(), 1. / _H0.at<double>(2, 2));   // 12 flops
