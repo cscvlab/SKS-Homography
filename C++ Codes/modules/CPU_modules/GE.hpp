@@ -6,7 +6,7 @@
 
 namespace cv
 {
-	void runKernelGE_Optimized(float* src, float* tar, float* result);
+	void runKernel_GE(float* src, float* tar, float* result);
 }
 
 #endif
