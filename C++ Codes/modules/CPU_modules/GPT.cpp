@@ -43,15 +43,16 @@
 
 #include "GPT.hpp"
 
-// Copy OpenCV's function getPerspectiveTransform, Here change its name to runKernel_getPerspectiveTransform
+// Copy OpenCV's function getPerspectiveTransform, Here change its name to runKernel_GPT
 // https://github.com/opencv/opencv/blob/4.x/modules/imgproc/src/imgwarp.cpp  line 3407
-
+// 1900+32 flops roughly estimated
 namespace cv
 {
-    void runKernel_getPerspectiveTransform(std::vector<cv::Point2f>& src, std::vector<cv::Point2f>& tar, cv::Mat& _model) {
+    void runKernel_GPT(std::vector<cv::Point2f>& src, std::vector<cv::Point2f>& tar, cv::Mat& _model) {
         Mat M(3, 3, CV_64F), X(8, 1, CV_64F, M.ptr());
         double a[8][8], b[8];
         Mat A(8, 8, CV_64F, a), B(8, 1, CV_64F, b);
+        // flops = 32
         for (int i = 0; i < 4; ++i) {
             a[i][0] = a[i + 4][3] = src[i].x;
             a[i][1] = a[i + 4][4] = src[i].y;
@@ -65,7 +66,7 @@ namespace cv
             b[i] = tar[i].x;
             b[i + 4] = tar[i].y;
         }
-        solve(A, B, X);
+        solve(A, B, X);  // flops = 1900 (roughly estimated)
         M.ptr<double>()[8] = 1.;
         M.copyTo(_model);
     }
