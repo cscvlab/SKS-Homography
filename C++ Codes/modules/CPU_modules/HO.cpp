@@ -26,7 +26,7 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Copy OpenCV's namespace HomographyHO, Here change its name to namespace cv::my_ho
 // https://github.com/opencv/opencv/blob/17234f82d025e3bbfbf611089637e5aa2038e7b8/modules/calib3d/src/ippe.cpp line 866
-
+// flops >= 1800
 using namespace cv;
 
 namespace my_ho {
@@ -148,12 +148,12 @@ namespace my_ho {
         Ti.at<double>(2, 2) = 1;
     }
 
-    void my_homographyHO(InputArray _srcPoints, InputArray _targPoints, Matx33d& H)
+    void runKernel_HO(InputArray _srcPoints, InputArray _targPoints, Matx33d& H)
     {
         Mat DataA, DataB, TA, TAi, TB, TBi;
 
-        my_normalizeDataIsotropic(_srcPoints, DataA, TA, TAi);
-        my_normalizeDataIsotropic(_targPoints, DataB, TB, TBi);
+        my_normalizeDataIsotropic(_srcPoints, DataA, TA, TAi);    // flops = 10n+120
+        my_normalizeDataIsotropic(_targPoints, DataB, TB, TBi);   // flops = 10n+120
 
         int n = DataA.cols;
         CV_Assert(n == DataB.cols);
@@ -164,7 +164,7 @@ namespace my_ho {
         Mat C4(1, n, CV_64FC1);
 
         double mC1 = 0, mC2 = 0, mC3 = 0, mC4 = 0;
-
+        // flops = 12n
         for (int i = 0; i < n; i++)
         {
             C1.at<double>(0, i) = -DataB.at<double>(0, i) * DataA.at<double>(0, i);
@@ -177,7 +177,7 @@ namespace my_ho {
             mC3 += C3.at<double>(0, i);
             mC4 += C4.at<double>(0, i);
         }
-
+        // flops = 16
         mC1 /= n;
         mC2 /= n;
         mC3 /= n;
@@ -186,7 +186,7 @@ namespace my_ho {
         Mat Mx(n, 3, CV_64FC1);
         Mat My(n, 3, CV_64FC1);
 
-
+        // flops = 6n
         for (int i = 0; i < n; i++)
         {
             Mx.at<double>(i, 0) = C1.at<double>(0, i) - mC1;
@@ -201,26 +201,27 @@ namespace my_ho {
         Mat DataAT, DataADataAT;
 
         transpose(DataA, DataAT);
-        DataADataAT = DataA * DataAT;
-        double dt = DataADataAT.at<double>(0, 0) * DataADataAT.at<double>(1, 1) - DataADataAT.at<double>(0, 1) * DataADataAT.at<double>(1, 0);
-
+        DataADataAT = DataA * DataAT;  // flops = 8n-4
+        double dt = DataADataAT.at<double>(0, 0) * DataADataAT.at<double>(1, 1) - DataADataAT.at<double>(0, 1) * DataADataAT.at<double>(1, 0); // flops = 3
+         
+        // flops = 18
         Mat DataADataATi(2, 2, CV_64FC1);
         DataADataATi.at<double>(0, 0) = DataADataAT.at<double>(1, 1) / dt;
         DataADataATi.at<double>(0, 1) = -DataADataAT.at<double>(0, 1) / dt;
         DataADataATi.at<double>(1, 0) = -DataADataAT.at<double>(1, 0) / dt;
         DataADataATi.at<double>(1, 1) = DataADataAT.at<double>(0, 0) / dt;
 
-        Mat Pp = DataADataATi * DataA;
-
+        Mat Pp = DataADataATi * DataA; // flops = 6n
+        // flops = 24n-12
         Mat Bx = Pp * Mx;
         Mat By = Pp * My;
-
+        // flops = 18n
         Mat Ex = DataAT * Bx;
         Mat Ey = DataAT * By;
 
         Mat D(2 * n, 3, CV_64FC1);
 
-
+        // flops = 6n
         for (int i = 0; i < n; i++)
         {
             D.at<double>(i, 0) = Mx.at<double>(i, 0) - Ex.at<double>(i, 0);
@@ -234,16 +235,17 @@ namespace my_ho {
 
         Mat DT, DDT;
         transpose(D, DT);
-        DDT = DT * D;
+        DDT = DT * D; // flops = 18n-9
 
         Mat S, U;
-        eigen(DDT, S, U);
+        eigen(DDT, S, U);  // iterate solving, estimate flops: 36*3^3 = 324
 
         Mat h789(3, 1, CV_64FC1);
         h789.at<double>(0, 0) = U.at<double>(2, 0);
         h789.at<double>(1, 0) = U.at<double>(2, 1);
         h789.at<double>(2, 0) = U.at<double>(2, 2);
-
+        
+       // flops = 28
         Mat h12 = -Bx * h789;
         Mat h45 = -By * h789;
 
@@ -262,8 +264,8 @@ namespace my_ho {
         H(2, 1) = h789.at<double>(1, 0);
         H(2, 2) = h789.at<double>(2, 0);
 
-        H = Mat(TB * H * TAi);
-        double h22_inv = 1 / H(2, 2);
+        H = Mat(TB * H * TAi); // estimate flops 40
+        double h22_inv = 1 / H(2, 2); // flops 12
         H = H * h22_inv;
     }
 }
