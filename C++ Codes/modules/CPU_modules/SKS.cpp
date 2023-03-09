@@ -3,31 +3,6 @@ A C++ code of Cai's homography solver SKS [1] and ACA [1].
 This software will only be used for non-commercial research purposes. See License.md.
 For commercial use, please contact the authors.
 
-    Similarity-Kernel-Similarity (SKS) Decomposition of 2D homographies:
-
-              H = H_S2^(-1) * H_K * H_S1 = H_S2^(-1) * H_E * H_T2_inv * H_G * H_T1 * H_E * H_S1
-
-  FLOPs: 169 = 157 (compute homographies up to a scale from 4 point correspondences) + 12 (normalization)
-
-  Detailed explanation goes here
-  Inputs: SourcePts --- source points;
-              TargetPts --- target points;
-              Both of them (3*4 matrices) are represented in homogeneous coordinates with the last elements 1.
-  Outputs: H --- homography between source and target planes  with normalization of the last element;
-
-
-    Affine-Core-Affine (ACA) Decomposition of 2D homographies:
-
-              H = H_A2^(-1) * H_C * H_A1
-
-  FLOPs: 97 = 85 (compute homographies up to a scale from 4 point correspondences) + 12 (normalization)
-
-  Detailed explanation goes here
-  Inputs: SourcePts --- source points;
-              TargetPts --- target points;
-              Both of them (3*4 matrices) are represented in homogeneous coordinates.
-  Outputs: H --- homography between source and target planes  with normalization of the last element;
-
  REFERENCE:
    [1] S. Cai, et al., "Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS)
         and Affine-Core-Affine (ACA)", submitted.
