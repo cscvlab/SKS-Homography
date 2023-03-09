@@ -26,7 +26,7 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Copy OpenCV's namespace HomographyHO, Here change its name to namespace cv::my_ho
 // https://github.com/opencv/opencv/blob/17234f82d025e3bbfbf611089637e5aa2038e7b8/modules/calib3d/src/ippe.cpp line 866
-// flops >= 1800
+// flops >= 118n+706
 using namespace cv;
 
 namespace my_ho {
