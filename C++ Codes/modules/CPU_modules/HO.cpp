@@ -264,7 +264,7 @@ namespace my_ho {
         H(2, 1) = h789.at<double>(1, 0);
         H(2, 2) = h789.at<double>(2, 0);
 
-        H = Mat(TB * H * TAi); // estimate flops 40
+        H = Mat(TB * H * TAi); // flops 90
         double h22_inv = 1 / H(2, 2); // flops 12
         H = H * h22_inv;
     }
