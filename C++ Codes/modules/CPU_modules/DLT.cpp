@@ -110,7 +110,7 @@ namespace cv
         }
         completeSymm(_LtL);  // no flops but time-consuming
 
-        eigen(_LtL, matW, matV);   // about 36*N^3 flops
+        eigen(_LtL, matW, matV);   // at least 36*9^3 = 26244 flops (roughly estimated)
         _Htemp = _invHnorm * _H0;    // 5*3*3=45 flops
         _H0 = _Htemp * _Hnorm2;      // 45 flops
         _H0.convertTo(_model, _H0.type(), 1. / _H0.at<double>(2, 2));   // 12 flops
