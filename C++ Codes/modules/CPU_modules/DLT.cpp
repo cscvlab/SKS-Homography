@@ -47,7 +47,7 @@ using namespace cv;
 // Copy OpenCV's function runKernel. Here change its name to runKernel_DLT.
 // https://github.com/opencv/opencv/blob/4.x/modules/calib3d/src/fundam.cpp line 118
 
-// Total cost: >=27400 flops. N is the number of points.
+// Total cost: >= 214N+26379 flops. N is the number of points.
 namespace cv
 {
     int runKernel_DLT(InputArray _m1, InputArray _m2, OutputArray _model)
