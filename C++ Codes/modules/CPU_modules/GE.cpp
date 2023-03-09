@@ -36,11 +36,12 @@
 
 #include "GE.hpp"
 
-// Copy OpenCV's function hFuncRefC, Here change its name to runKernelGE_Optimized
+// Copy OpenCV's function hFuncRefC, Here change its name to runKernel_GE
 // https://github.com/opencv/opencv/blob/4.x/modules/calib3d/src/rho.cpp  line 1797
+// flops = 221
 namespace cv
 {
-	void runKernelGE_Optimized(float* src, float* tar, float* result)
+	void runKernel_GE(float* src, float* tar, float* result)
 	{
 		float x0 = src[0];
 		float y0 = src[1];
@@ -58,18 +59,21 @@ namespace cv
 		float Y2 = tar[5];
 		float X3 = tar[6];
 		float Y3 = tar[7];
-
+		
+		// flops = 16
 		float x0X0 = x0 * X0, x1X1 = x1 * X1, x2X2 = x2 * X2, x3X3 = x3 * X3;
 		float x0Y0 = x0 * Y0, x1Y1 = x1 * Y1, x2Y2 = x2 * Y2, x3Y3 = x3 * Y3;
 		float y0X0 = y0 * X0, y1X1 = y1 * X1, y2X2 = y2 * X2, y3X3 = y3 * X3;
 		float y0Y0 = y0 * Y0, y1Y1 = y1 * Y1, y2Y2 = y2 * Y2, y3Y3 = y3 * Y3;
-
+		
+		// flops = 28
 		float minor[2][4] = { { x0 - x2, x1 - x2, x2, x3 - x2 },
 		{ y0 - y2, y1 - y2, y2, y3 - y2 } };
 		float major[3][8] = { { x2X2 - x0X0, x2X2 - x1X1, -x2X2, x2X2 - x3X3, x2Y2 - x0Y0, x2Y2 - x1Y1, -x2Y2, x2Y2 - x3Y3 },
 		{ y2X2 - y0X0, y2X2 - y1X1, -y2X2, y2X2 - y3X3, y2Y2 - y0Y0, y2Y2 - y1Y1, -y2Y2, y2Y2 - y3Y3 },
 		{ (X0 - X2), (X1 - X2), (X2), (X3 - X2), (Y0 - Y2), (Y1 - Y2), (Y2), (Y3 - Y2) } };
-
+		
+		// flops = 21
 		float scalar1 = minor[0][0], scalar2 = minor[0][1];
 		minor[1][1] = minor[1][1] * scalar1 - minor[1][0] * scalar2;
 
@@ -80,7 +84,8 @@ namespace cv
 		major[0][5] = major[0][5] * scalar1 - major[0][4] * scalar2;
 		major[1][5] = major[1][5] * scalar1 - major[1][4] * scalar2;
 		major[2][5] = major[2][5] * scalar1 - major[2][4] * scalar2;
-
+		
+		// flops = 21
 		scalar2 = minor[0][3];
 		minor[1][3] = minor[1][3] * scalar1 - minor[1][0] * scalar2;
 
@@ -91,7 +96,8 @@ namespace cv
 		major[0][7] = major[0][7] * scalar1 - major[0][4] * scalar2;
 		major[1][7] = major[1][7] * scalar1 - major[1][4] * scalar2;
 		major[2][7] = major[2][7] * scalar1 - major[2][4] * scalar2;
-
+		
+		// flops = 18
 		scalar1 = minor[1][1]; scalar2 = minor[1][3];
 		major[0][3] = major[0][3] * scalar1 - major[0][1] * scalar2;
 		major[1][3] = major[1][3] * scalar1 - major[1][1] * scalar2;
@@ -100,7 +106,8 @@ namespace cv
 		major[0][7] = major[0][7] * scalar1 - major[0][5] * scalar2;
 		major[1][7] = major[1][7] * scalar1 - major[1][5] * scalar2;
 		major[2][7] = major[2][7] * scalar1 - major[2][5] * scalar2;
-
+		
+		// flops = 19
 		scalar2 = minor[1][0];
 		//minor[0][0] = minor[0][0] * scalar1 - minor[0][1] * scalar2;
 		minor[0][0] = minor[0][0] * scalar1;
@@ -111,7 +118,8 @@ namespace cv
 		major[0][4] = major[0][4] * scalar1 - major[0][5] * scalar2;
 		major[1][4] = major[1][4] * scalar1 - major[1][5] * scalar2;
 		major[2][4] = major[2][4] * scalar1 - major[2][5] * scalar2;
-
+		
+		// flops = 20
 		scalar1 = 1.0f / minor[0][0];
 		major[0][0] *= scalar1;
 		major[1][0] *= scalar1;
@@ -128,7 +136,7 @@ namespace cv
 		major[1][5] *= scalar1;
 		major[2][5] *= scalar1;
 
-
+		// flops = 24
 		scalar1 = minor[0][2]; scalar2 = minor[1][2];
 		major[0][2] -= major[0][0] * scalar1 + major[0][1] * scalar2;
 		major[1][2] -= major[1][0] * scalar1 + major[1][1] * scalar2;
@@ -139,6 +147,7 @@ namespace cv
 		major[2][6] -= major[2][4] * scalar1 + major[2][5] * scalar2;
 
 		/* Only major matters now. R(3) and R(7) correspond to the hollowed-out rows. */
+		// flops = 36
 		scalar1 = major[0][7];
 		major[1][7] /= scalar1;
 		major[2][7] /= scalar1;
@@ -154,7 +163,7 @@ namespace cv
 
 		/* One column left (Two in fact, but the last one is the homography) */
 		scalar1 = major[1][3];
-
+		// flops = 18
 		major[2][3] /= scalar1;
 		scalar1 = major[1][0]; major[2][0] -= scalar1 * major[2][3];
 		scalar1 = major[1][1]; major[2][1] -= scalar1 * major[2][3];
