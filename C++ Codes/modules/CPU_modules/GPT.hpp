@@ -6,7 +6,7 @@
 
 namespace cv
 {
-	void runKernel_getPerspectiveTransform(std::vector<cv::Point2f>& src, std::vector<cv::Point2f>& tar, cv::Mat& _model);
+	void runKernel_GPT(std::vector<cv::Point2f>& src, std::vector<cv::Point2f>& tar, cv::Mat& _model);
 }
 
 #endif
