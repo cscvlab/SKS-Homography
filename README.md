@@ -4,7 +4,8 @@ This repository is the official implementation of the paper:
 **Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA)**. 
 
 SKS and ACA are novel decomposition forms for 2D homography (projective transformation) matrices, which are superior to previous 4-point homography methods (NDLT-SVD, HO-SVD, GPT-LU, RHO-GE) in terms of computational efficiency, geometrical meaning of parameters, and unified management for various planar configurations. The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Python (with PyTorch library) procedures used in CPU and GPU experiments.
-[Project Page] [Paper] [Video]
+
+[Project Page] [Paper] [Video] (Coming soon)
 
 ## SKS Decomposition
 SKS decomposes a 2D homography into three sub-transformations: 
