@@ -101,7 +101,7 @@ namespace sks {
 		return 0;
 	}
 
-	int runKernel_ACA_double(float* src, float* tar, double* result)
+	int runKernel_ACA_double(double* src, double* tar, double* result)
 	{
 
 		// compute the affine trans. H_A1 and other variables on source plane, 15 flops
@@ -302,7 +302,7 @@ namespace sks {
 		return 0;
 	}
 
-	int runKernel_SKS_double(float* src, float* tar, double* result) {
+	int runKernel_SKS_double(double* src, double* tar, double* result) {
 		// compute the similarity transformation H_S1 on source plane based on two anchor points (e.g., M1 and N1), 9 flops
 		double o1_x = 0.5 * (src[0] + src[2]);   // midpoint O1, 2 flops
 		double o1_y = 0.5 * (src[1] + src[3]);   // 2
