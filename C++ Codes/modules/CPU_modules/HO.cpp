@@ -29,7 +29,7 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // flops >= 118n+1354; N is the number of points.
 using namespace cv;
 
-namespace my_ho {
+namespace cv {
     void my_normalizeDataIsotropic(InputArray _Data, OutputArray _DataN, OutputArray _T, OutputArray _Ti)
     {
         Mat Data = _Data.getMat();
