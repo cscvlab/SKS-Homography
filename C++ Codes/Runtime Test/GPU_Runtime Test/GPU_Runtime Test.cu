@@ -506,7 +506,7 @@ __global__ void cal_Homo_GE(double* src, double* tar, double* result, int offset
 	result[id + 8 * offset] = 1.0;
 }
 
-
+// function PYTHAG and svd Copied from https://github.com/xintaoding/CSAC/blob/main/homography/cu_test/kernel.cu
 __host__ __device__ static double PYTHAG(double a, double b)
 {
 	double at = fabs(a), bt = fabs(b), ct, result;
