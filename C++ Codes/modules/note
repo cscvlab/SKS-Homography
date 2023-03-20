@@ -1,3 +1,4 @@
-The 'ACA_SKS' files include the implementations of our ACA and SKS decomposition of 2D homography. Both of them are implementated using float and double variables separately.
+The 'ACA_SKS' files include the implementations of our ACA and SKS decomposition of 2D homography. 
+Both of them are implementated using float and double variables separately.
 
 The implementations of the previous four methods, incluing NDLT-SVD, HO-SVD, GPT-LU and RHO-GE, come from OpenCV library. 
