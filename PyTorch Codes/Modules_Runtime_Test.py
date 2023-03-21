@@ -37,7 +37,10 @@ def adjust(device, bs):
     return src_ps, dst_p, src_ps_new, dst_p_new, scale, div
 
 
-def TensorDLT(bs, src, tar, loops):
+# the function TensorDLT_1 comes from
+# paper "Unsupervised Deep Homography: A Fast and Robust Homography Estimation Model"
+# paper code link https://github.com/tynguyen/unsupervisedDeepHomographyRAL2018
+def TensorDLT_1(bs, src, tar, loops):
     print("TensorDLT \n")
     if src.device == 'cuda':
         for i in range(10):
@@ -64,6 +67,7 @@ def TensorDLT(bs, src, tar, loops):
 
         Ainv = torch.inverse(A)
         h8 = torch.matmul(Ainv, b).reshape(bs, 8)
+        # h8 = torch.solve(b, A)[0].reshape(bs, 8)
         H = torch.cat((h8, ones[:, 0, :]), 1).reshape(bs, 3, 3)
 
         torch.cuda.synchronize()
@@ -74,142 +78,10 @@ def TensorDLT(bs, src, tar, loops):
     return mean
 
 
-def TensorACA_rec(bs, src, tar, scale, div):
-    print("TensorACA_rec \n")
-    if src.device == 'cuda':
-        for i in range(10):
-            warm = torch.inverse(torch.randn((bs, 3, 3)).cuda())
-    time_list = []
-    for i in trange(loops):
-        torch.cuda.synchronize()
-        start = time.perf_counter_ns()
-
-        H = torch.zeros((bs, 3, 3), device=src.device)
-        MN_MP_MQ_P2 = tar[:, :, 1:] - tar[:, :, 0:1]
-        Q4 = torch.cross(MN_MP_MQ_P2[:, 1:2, :], MN_MP_MQ_P2[:, 0:1, :], dim=2)
-        h_temp = torch.sum(Q4, dim=2, keepdim=True) * tar[:, :, 0:1]
-        H[:, :, 0:1] = tar[:, :, 1:2] * Q4[:, :, 0:1] - h_temp
-        H[:, :, 1:2] = torch.mul(div, tar[:, :, 2:3] * Q4[:, :, 1:2] - h_temp)
-        H[:, :, 2:3] = scale * h_temp - src[:, 0:1, 0:1] * H[:, :, 0:1] - src[:, 1:2, 0:1] * H[:, :, 1:2]
-
-        torch.cuda.synchronize()
-        end = time.perf_counter_ns()
-        time_list.append(end - start)
-    mean = np.mean(np.array(time_list)[10:])
-
-    return mean
-
-
-def TensorACA_C(bs, src, tar, loops):
-    print("TensorACA_C \n")
-    if src.device == 'cuda':
-        for i in range(10):
-            warm = torch.inverse(torch.randn((bs, 3, 3)).cuda())
-    time_list = []
-
-    for i in trange(loops):
-        torch.cuda.synchronize()
-        start = time.perf_counter_ns()
-
-        MN_MP_MQ_P1 = src[:, :, 1:] - src[:, :, 0:1]
-        MN_MP_MQ_P2 = tar[:, :, 1:] - tar[:, :, 0:1]
-        Q3 = torch.cross(MN_MP_MQ_P1[:, 1:2, :], MN_MP_MQ_P1[:, 0:1, :], dim=2)
-        Q3[:, :, -1:] = torch.sum(Q3, dim=2, keepdim=True)
-        Q4 = torch.cross(MN_MP_MQ_P2[:, 1:2, :], MN_MP_MQ_P2[:, 0:1, :], dim=2)
-        Q4[:, :, -1:] = torch.sum(Q4, dim=2, keepdim=True)
-        a_vec = torch.div(Q4, Q3)
-        N_P_M_2 = torch.cat((tar[:, :, 1:2], tar[:, :, 2:3], tar[:, :, 0:1]), dim=2)
-        N_P_M_1 = torch.cat((src[:, :, 1:2], src[:, :, 2:3], src[:, :, 0:1]), dim=2)
-        H_P1 = a_vec * N_P_M_2
-        H = torch.matmul(H_P1, N_P_M_1.inverse())
-
-        torch.cuda.synchronize()
-        end = time.perf_counter_ns()
-        time_list.append(end - start)
-    mean = np.mean(np.array(time_list)[10:])
-    return mean
-
-
-def ACA_C_Python(bs, src, tar, loops):
-    print("ACA_C_Python \n")
-    if src.device == 'cuda':
-        for i in range(10):
-            warm = torch.inverse(torch.randn((bs, 3, 3)).cuda())
-    time_list = []
-    for i in trange(loops):
-        torch.cuda.synchronize()
-        start = time.perf_counter_ns()
-
-        M1N1_X = src[:, 1, 0] - src[:, 0, 0]
-        M1N1_Y = src[:, 1, 1] - src[:, 0, 1]
-
-        M1P1_X = src[:, 2, 0] - src[:, 0, 0]
-        M1P1_Y = src[:, 2, 1] - src[:, 0, 1]
-
-        M1Q1_X = src[:, 3, 0] - src[:, 0, 0]
-        M1Q1_Y = src[:, 3, 1] - src[:, 0, 1]
-
-        fA1 = M1N1_X * M1P1_Y - M1N1_Y * M1P1_X
-        Q3_x = M1P1_Y * M1Q1_X - M1P1_X * M1Q1_Y
-        Q3_y = M1N1_X * M1Q1_Y - M1N1_Y * M1Q1_X
-
-        M2N2_X = tar[:, 1, 0] - tar[:, 0, 0]
-        M2N2_Y = tar[:, 1, 1] - tar[:, 0, 1]
-
-        M2P2_X = tar[:, 2, 0] - tar[:, 0, 0]
-        M2P2_Y = tar[:, 2, 1] - tar[:, 0, 1]
-
-        M2Q2_X = tar[:, 3, 0] - tar[:, 0, 0]
-        M2Q2_Y = tar[:, 3, 1] - tar[:, 0, 1]
-
-        fA2 = M2N2_X * M2P2_Y - M2N2_Y * M2P2_X
-        Q4_x = M2P2_Y * M2Q2_X - M2P2_X * M2Q2_Y
-        Q4_y = M2N2_X * M2Q2_Y - M2N2_Y * M2Q2_X
-
-        tt1 = fA1 - Q3_x - Q3_y
-        C11 = Q3_y * Q4_x * tt1
-        C22 = Q3_x * Q4_y * tt1
-        C33 = Q3_x * Q3_y * (fA2 - Q4_x - Q4_y)
-        C31 = C11 - C33
-        C32 = C22 - C33
-
-        tt3 = tar[:, 0, 0] * C33
-        tt4 = tar[:, 0, 1] * C33
-        H1_11 = tar[:, 1, 0] * C11 - tt3
-        H1_12 = tar[:, 2, 0] * C22 - tt3
-        H1_21 = tar[:, 1, 1] * C11 - tt4
-        H1_22 = tar[:, 2, 1] * C22 - tt4
-
-        res_0 = H1_11 * M1P1_Y - H1_12 * M1N1_Y
-        res_1 = H1_12 * M1N1_X - H1_11 * M1P1_X
-        res_3 = H1_21 * M1P1_Y - H1_22 * M1N1_Y
-        res_4 = H1_22 * M1N1_X - H1_21 * M1P1_X
-        res_6 = C31 * M1P1_Y - C32 * M1N1_Y
-        res_7 = C32 * M1N1_X - C31 * M1P1_X
-        res_2 = tt3 * fA1 - res_0 * src[:, 0, 0] - res_1 * src[:, 0, 1]
-        res_5 = tt4 * fA1 - res_3 * src[:, 0, 0] - res_4 * src[:, 0, 1]
-        res_8 = C33 * fA1 - res_6 * src[:, 0, 0] - res_7 * src[:, 0, 1]
-
-        H = torch.ones((bs, 9), device=src.device)
-        H[:, 0] = res_0
-        H[:, 1] = res_1
-        H[:, 2] = res_2
-        H[:, 3] = res_3
-        H[:, 4] = res_4
-        H[:, 5] = res_5
-        H[:, 6] = res_6
-        H[:, 7] = res_7
-        H[:, 8] = res_8
-        H = H.reshape(bs, 3, 3)
-
-        torch.cuda.synchronize()
-        end = time.perf_counter_ns()
-        time_list.append(end - start)
-    mean = np.mean(np.array(time_list)[10:])
-    return mean
-
-
-def TensorIHN(bs, src, tar, loops):
+# the function TensorDLT_2 comes from
+# paper "Iterative Deep Homography Estimation"
+# paper code link https://github.com/imdumpl78/IHN
+def TensorDLT_2(bs, src, tar, loops):
     print("TensorIHN \n")
     if src.device == 'cuda':
         for i in range(10):
@@ -229,6 +101,9 @@ def TensorIHN(bs, src, tar, loops):
     return mean
 
 
+# the function TensorGE comes from OpenCV library
+# We reimplemented it using python
+# code link https://github.com/opencv/opencv/blob/4.x/modules/calib3d/src/rho.cpp
 def TensorGE(bs, src, tar, loops):
     print("TensorGE \n")
     if src.device == 'cuda':
@@ -408,6 +283,111 @@ def TensorGE(bs, src, tar, loops):
     return mean
 
 
+def TensorACA_rect(bs, src, tar, scale, div):
+    print("TensorACA_rec \n")
+    if src.device == 'cuda':
+        for i in range(10):
+            warm = torch.inverse(torch.randn((bs, 3, 3)).cuda())
+    time_list = []
+    for i in trange(loops):
+        torch.cuda.synchronize()
+        start = time.perf_counter_ns()
+
+        H = torch.zeros((bs, 3, 3), device=src.device)
+        MN_MP_MQ_P2 = tar[:, :, 1:] - tar[:, :, 0:1]
+        Q4 = torch.cross(MN_MP_MQ_P2[:, 1:2, :], MN_MP_MQ_P2[:, 0:1, :], dim=2)
+        h_temp = torch.sum(Q4, dim=2, keepdim=True) * tar[:, :, 0:1]
+        H[:, :, 0:1] = tar[:, :, 1:2] * Q4[:, :, 0:1] - h_temp
+        H[:, :, 1:2] = torch.mul(div, tar[:, :, 2:3] * Q4[:, :, 1:2] - h_temp)
+        H[:, :, 2:3] = scale * h_temp - src[:, 0:1, 0:1] * H[:, :, 0:1] - src[:, 1:2, 0:1] * H[:, :, 1:2]
+
+        torch.cuda.synchronize()
+        end = time.perf_counter_ns()
+        time_list.append(end - start)
+    mean = np.mean(np.array(time_list)[10:])
+
+    return mean
+
+
+def ACA_vanilla(bs, src, tar, loops):
+    print("ACA_C_Python \n")
+    if src.device == 'cuda':
+        for i in range(10):
+            warm = torch.inverse(torch.randn((bs, 3, 3)).cuda())
+    time_list = []
+    for i in trange(loops):
+        torch.cuda.synchronize()
+        start = time.perf_counter_ns()
+
+        M1N1_X = src[:, 1, 0] - src[:, 0, 0]
+        M1N1_Y = src[:, 1, 1] - src[:, 0, 1]
+
+        M1P1_X = src[:, 2, 0] - src[:, 0, 0]
+        M1P1_Y = src[:, 2, 1] - src[:, 0, 1]
+
+        M1Q1_X = src[:, 3, 0] - src[:, 0, 0]
+        M1Q1_Y = src[:, 3, 1] - src[:, 0, 1]
+
+        fA1 = M1N1_X * M1P1_Y - M1N1_Y * M1P1_X
+        Q3_x = M1P1_Y * M1Q1_X - M1P1_X * M1Q1_Y
+        Q3_y = M1N1_X * M1Q1_Y - M1N1_Y * M1Q1_X
+
+        M2N2_X = tar[:, 1, 0] - tar[:, 0, 0]
+        M2N2_Y = tar[:, 1, 1] - tar[:, 0, 1]
+
+        M2P2_X = tar[:, 2, 0] - tar[:, 0, 0]
+        M2P2_Y = tar[:, 2, 1] - tar[:, 0, 1]
+
+        M2Q2_X = tar[:, 3, 0] - tar[:, 0, 0]
+        M2Q2_Y = tar[:, 3, 1] - tar[:, 0, 1]
+
+        fA2 = M2N2_X * M2P2_Y - M2N2_Y * M2P2_X
+        Q4_x = M2P2_Y * M2Q2_X - M2P2_X * M2Q2_Y
+        Q4_y = M2N2_X * M2Q2_Y - M2N2_Y * M2Q2_X
+
+        tt1 = fA1 - Q3_x - Q3_y
+        C11 = Q3_y * Q4_x * tt1
+        C22 = Q3_x * Q4_y * tt1
+        C33 = Q3_x * Q3_y * (fA2 - Q4_x - Q4_y)
+        C31 = C11 - C33
+        C32 = C22 - C33
+
+        tt3 = tar[:, 0, 0] * C33
+        tt4 = tar[:, 0, 1] * C33
+        H1_11 = tar[:, 1, 0] * C11 - tt3
+        H1_12 = tar[:, 2, 0] * C22 - tt3
+        H1_21 = tar[:, 1, 1] * C11 - tt4
+        H1_22 = tar[:, 2, 1] * C22 - tt4
+
+        res_0 = H1_11 * M1P1_Y - H1_12 * M1N1_Y
+        res_1 = H1_12 * M1N1_X - H1_11 * M1P1_X
+        res_3 = H1_21 * M1P1_Y - H1_22 * M1N1_Y
+        res_4 = H1_22 * M1N1_X - H1_21 * M1P1_X
+        res_6 = C31 * M1P1_Y - C32 * M1N1_Y
+        res_7 = C32 * M1N1_X - C31 * M1P1_X
+        res_2 = tt3 * fA1 - res_0 * src[:, 0, 0] - res_1 * src[:, 0, 1]
+        res_5 = tt4 * fA1 - res_3 * src[:, 0, 0] - res_4 * src[:, 0, 1]
+        res_8 = C33 * fA1 - res_6 * src[:, 0, 0] - res_7 * src[:, 0, 1]
+
+        H = torch.ones((bs, 9), device=src.device)
+        H[:, 0] = res_0
+        H[:, 1] = res_1
+        H[:, 2] = res_2
+        H[:, 3] = res_3
+        H[:, 4] = res_4
+        H[:, 5] = res_5
+        H[:, 6] = res_6
+        H[:, 7] = res_7
+        H[:, 8] = res_8
+        H = H.reshape(bs, 3, 3)
+
+        torch.cuda.synchronize()
+        end = time.perf_counter_ns()
+        time_list.append(end - start)
+    mean = np.mean(np.array(time_list)[10:])
+    return mean
+
+
 if __name__ == "__main__":
     batchSize = 1
     device = 'cuda'
@@ -418,16 +398,14 @@ if __name__ == "__main__":
     loops = 500000
     src, tar, src_our, tar_our, scale, div = adjust(device, batchSize)
 
-    IHN_time = TensorIHN(batchSize, src, tar, loops)
-    DLT_time = TensorDLT(batchSize, src, tar, loops)
-    ACA_rec_time = TensorACA_rec(batchSize, src_our, tar_our, scale, div)
-    ACA_mat_time = TensorACA_C(batchSize, src_our, tar_our, loops)
-    ACA_C_Python_time = ACA_C_Python(batchSize, src, tar, loops)
-    GE_time = TensorGE(batchSize, src, tar, loops)
+    TensorDLT_1_time = TensorDLT_1(batchSize, src, tar, loops)
+    TensorDLT_2_time = TensorDLT_2(batchSize, src, tar, loops)
+    ACA_rec_time = TensorACA_rect(batchSize, src_our, tar_our, scale, div)
+    ACA_vanilla_time = ACA_vanilla(batchSize, src, tar, loops)
+    TensorGE_time = TensorGE(batchSize, src, tar, loops)
 
-    print(f"IHN: {IHN_time / 1e3}\n")
-    print(f"DLT: {DLT_time / 1e3}\n")
+    print(f"TensorDLT_1: {TensorDLT_1_time / 1e3}\n")
+    print(f"TensorDLT_2: {TensorDLT_2_time / 1e3}\n")
+    print(f"GE: {TensorGE_time / 1e3}\n")
     print(f"ACA_rec: {ACA_rec_time / 1e3}\n")
-    print(f"ACA_Mat: {ACA_mat_time / 1e3}\n")
-    print(f"ACA_C_Python: {ACA_C_Python_time / 1e3}\n")
-    print(f"GE: {GE_time / 1e3}\n")
+    print(f"ACA_C_Python: {ACA_vanilla_time / 1e3}\n")
