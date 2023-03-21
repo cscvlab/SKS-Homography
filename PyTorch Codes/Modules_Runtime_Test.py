@@ -67,7 +67,7 @@ def TensorDLT_1(bs, src, tar, loops):
 
         Ainv = torch.inverse(A)
         h8 = torch.matmul(Ainv, b).reshape(bs, 8)
-        # h8 = torch.solve(b, A)[0].reshape(bs, 8)
+        # h8 = torch.solve(b, A)[0].reshape(bs, 8) # The above two lines can be replaced by this(the paper code used the above method)
         H = torch.cat((h8, ones[:, 0, :]), 1).reshape(bs, 3, 3)
 
         torch.cuda.synchronize()
