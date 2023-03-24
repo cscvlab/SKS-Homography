@@ -52,7 +52,7 @@ ACA is extremely concise in algebra and only requires 85 addtions, subtractions 
 FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 and 85 respectively. With the normalization based on the last element of homography (which costs 12 extra FLOPs), FLOPs of SKS and ACA are 169 and 97 respectively. Compared with commonly used robust 4-point homography solvers NDLT-SVD ($\ge$27K FLOPs) and GPT-LU (~1950 FLOPs), SKS and ACA represent {162x, 12x} and {282x, 20x}, respectively.
 
 ### Polynomial Expression of Each Element of Homography
-Polynomial expression of each element of homography is easily obtained in our derivation, which is given by 
+Owing to the extremely simple expression of each sub-transformation, we can represent each element of a homography by the input variables ($16$ coordinates provided by four point correspondences) in polynomial form, which is given by 
 ```math
 \mathbf{H} = \begin{bmatrix} \mathcal{F}_{11}^8 & \mathcal{F}_{12}^8 & \mathcal{F}_{13}^9 \\
 \mathcal{F}_{21}^8 & \mathcal{F}_{22}^8 & \mathcal{F}_{23}^9  \\ \mathcal{F}_{31}^7 & \mathcal{F}_{32}^7 & \mathcal{F}_{33}^8 \end{bmatrix},
