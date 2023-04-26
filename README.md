@@ -64,6 +64,9 @@ All previous 4-point offsets based deep homography methods compute the homograph
 
 <div align="center"> <img src="imgs/ACA-rect.png" width = 60% /> </div>
 
+### A Unified Way to Decompose and Compute Affine Transformations
+Affine transformations, as one kind of degenerate projective transformations, can also be managed by SKS and ACA in a unified way. Therefore, FLOPs of computing affine transformations with three points is significantly reduced, especially compared to the GPT-LU method (see OpenCV's function 'getAffineTransform').
+
 ## Experiments
 ### CPU Runtime
 Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {488x, 477x, 29x} and {731x, 713x, 43x} respectively under 'O2' compiler optimization. These numbers are bigger than FLOPs ratios as their implementations in OpenCV include more or less
