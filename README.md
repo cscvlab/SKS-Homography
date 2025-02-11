@@ -1,7 +1,7 @@
 # SKS & ACA Decomposition of 2D Homography
-This repository is the official implementation of the paper (Minor Revision for PAMI submission): 
+This repository is the official implementation of the paper: 
 
-**Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity and Affine-Core-Affine Transformations**. 
+**Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity and Affine-Core-Affine Transformations**.
 
 __Authors:__ Shen Cai*, Zhanhao Wu, Juan Guo, Jiachun Wang, Siyu Zhang, Junchi Yan,  Shuhan Shen.
 
