@@ -8,7 +8,7 @@ __Authors:__ Shen Cai*, Zhanhao Wu, Lingxi Guo, Jiachun Wang, Siyu Zhang, Junchi
 Similarity-Kernel-Similarity (SKS) and Affine-Core-Affine (ACA) are novel decomposition forms for 2D homography (projective transformation) matrices, which are superior to previous 4-point homography solvers (NDLT-SVD, HO-SVD, GPT-LU, RHO-GE) in terms of computational efficiency, geometrical meaning of parameters, and unified management for various planar configurations. The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Python (with PyTorch library) procedures used in CPU and GPU experiments.
 
 **Links:**  [[Paper]](https://arxiv.org/pdf/2402.18008) [[Short Video]](https://www.bilibili.com/video/BV1iLZ3YyEnR/)
-[[Project Page]]  (Coming soon)
+[[Project Page]](https://www.cscvlab.com/SKS-Homography/)
 
 ## SKS Decomposition
 SKS decomposes a 2D homography into three sub-transformations: 
