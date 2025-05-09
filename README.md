@@ -85,3 +85,15 @@ Runtime of multiple homographies computation in parallel on GPU is meaningful fo
 From the tables, the fastest ACA algorithm can run about **70M** and **4G** times on the tested CPU and GPU respectively.
 
 
+## Citation
+
+```bibtex
+@article{Cai2025SKS,
+  title={Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity and Affine-Core-Affine Transformations},
+  author={Shen Cai, Zhanhao Wu, Lingxi Guo, Jiachun Wang, Siyu Zhang, Junchi Yan, Shuhan Shen},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)},
+  year={2025},
+}
+```
+
+
