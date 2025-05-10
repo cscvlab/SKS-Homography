@@ -7,8 +7,10 @@ __Authors:__ Shen Cai*, Zhanhao Wu, Lingxi Guo, Jiachun Wang, Siyu Zhang, Junchi
 
 Previous four-point homography computation methods exhibit algebraic redundancy (arising from the construction of a sparse linear system) and geometric isolation (no link to other 2D primitives, transformation computations, and minimal vision problems). Our SKS and ACA methods offer distinct advantages in various aspects and demonstrate extreme efficiency. The uploaded codes include the Matlab, C++ (with OpenCV or CUDA library) and Python (with PyTorch library) procedures used in CPU and GPU experiments.
 
-**Links:**  [[Paper]](https://arxiv.org/pdf/2402.18008) [[Short Video]](https://www.bilibili.com/video/BV1iLZ3YyEnR/)
-[[Project Page]](http://www.cscvlab.com/research/SKS-Homography/)
+**Links:**  [[Paper]](https://arxiv.org/pdf/2402.18008) 
+[[Project Page]](http://www.cscvlab.com/research/SKS-Homography/) 
+[[ShortVideo(bilibili)]](https://www.bilibili.com/video/BV1iLZ3YyEnR/)
+[[ShortVideo(YouTube)]](https://youtu.be/jVQ-6ub70K0)
 
 ## SKS Decomposition
 SKS decomposes a 2D homography into three sub-transformations: 
