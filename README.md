@@ -28,12 +28,11 @@ ACA also decomposes a 2D homography into three sub-transformations:
 ```
 where $\mathbf{H}\_{A\_1}$ and $\mathbf{H}\_{A\_2}$ are affine transformations induced by three arbitrary pairs of corresponding points on source plane and target plane, respectively; $\mathbf{H}\_{C}$ is the 2-DOF core transfromation we defined, which generates projective distortion between two affinity-normalized planes.
 
-## Geometric Meanings
-In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process of SKS follows the philosophy of symmetry as shown below.
-
-1. dfsf
-2. fdse
-3. fe 
+## Rich Geometric Meanings
+In SKS and ACA, each sub-transformation and even each parameter of these transformations has geometric meaning. In particular, 
+1. In SKS, the projective distortion induced by $\mathbf{H}\_{K}$ is associated with the hyperbolic similarity transformation.
+2. Two anchor points based SKS supports a unified solution to different 2D primitive (lines and conics), or their mixed pattern.
+3. Straitied geometric transformation extent the existing SAP decomposition.
 
 ## Algebraic Simplicity
 SKS and ACA exhibit many unique properties in algebra, some of which are shown below.
