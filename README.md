@@ -74,20 +74,6 @@ All previous 4-point offsets based deep homography methods compute the homograph
 ### A Unified Way to Decompose and Compute Affine Transformations
 Affine transformations, as one kind of degenerate projective transformations, can also be managed by SKS and ACA in a unified way. Therefore, FLOPs of computing affine transformations with three points is significantly reduced, especially compared to the GPT-LU method (see OpenCV's function 'getAffineTransform').
 
-## Experiments
-### CPU Runtime
-Compared to the three robust methods (NDLT-SVD, HO-SVD and GPT-LU), SKS(\*\*) and ACA(\*\*) represents {488x, 477x, 29x} and {731x, 713x, 43x} respectively under 'O2' compiler optimization. These numbers are bigger than FLOPs ratios as their implementations in OpenCV include more or less
-conditional branch judgments, data copy or exchange, OpenCV data structures, etc., which may severely influence the speed. 
-
-<div align="center"> <img src="imgs/CPU-runtime.png" width = 100% /> </div>
-
-### GPU Runtime
-Runtime of multiple homographies computation in parallel on GPU is meaningful for both the feature-based RANSAC pipelines and the deep homography pipelines. Specifically, each 4-point homography is assigned to one thread of GPU for computation and the program statements will be sequentially executed by a GPU CUDA core. The total runtime of all algorithms for small numbers  ($\leq$10K) of homographies in Table increases slightly with the increase of the numbers. This is because the parallel computation of small numbers of homographies don't trigger all 10496 CUDA cores of NVIDIA 3090 GPU.
-
-<div align="center"> <img src="imgs/GPU-runtime.png" width = 100% /> </div>
-
-From the tables, the fastest ACA algorithm can run about **70M** and **4G** times on the tested CPU and GPU respectively.
-
 
 ## Citation
 
