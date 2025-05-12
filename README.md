@@ -31,16 +31,9 @@ where $\mathbf{H}\_{A\_1}$ and $\mathbf{H}\_{A\_2}$ are affine transformations i
 ## Geometric Meanings
 In SKS and ACA, each sub-transformation, and even each parameter of these transformations has geometric meaning. The whole decomposition process of SKS follows the philosophy of symmetry as shown below.
 
- <div align="center"> <img src="imgs/SKS.png" alt="SKS decomposition process" width = 90% /> </div> 
- 
- This figure introduces one kind of further decomposition of the kernel transformation,
-```math
-\mathbf{H}_{K}=\mathbf{H}_{E}^{-1}\mathbf{H}^{-1}_{T_2}\mathbf{H}_{G}\mathbf{H}_{T_1}\mathbf{H}_{E}.
-```
- 
- The whole decomposition process of ACA is more concise as follows.
- 
- <div align="center"> <img src="imgs/ACA.png" alt="ACA decomposition process" width = 50% /> </div>
+1. dfsf
+2. fdse
+3. fe 
 
 ## Algebraic Simplicity
 SKS and ACA exhibit many unique properties in algebra, some of which are shown below.
