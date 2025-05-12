@@ -59,15 +59,12 @@ ACA is extremely concise in algebra and only requires 85 addtions, subtractions 
 FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 and 85 respectively. With the normalization based on the last element of homography (which costs 12 extra FLOPs), FLOPs of SKS and ACA are 169 and 97 respectively. Compared with commonly used robust 4-point homography solvers NDLT-SVD ($\ge$27K FLOPs) and GPT-LU (~1950 FLOPs), SKS and ACA represent {162x, 12x} and {282x, 20x}, respectively.
 
 ### Polynomial Expression of Each Element of Homography
-Owing to the extremely simple expression of each sub-transformation, we can represent each element of a homography by the input variables ($16$ coordinates provided by four point correspondences) in polynomial form, which is given by 
-```math
-\mathbf{H} = \begin{bmatrix} \mathcal{F}_{11}^8 & \mathcal{F}_{12}^8 & \mathcal{F}_{13}^9 \\
-\mathcal{F}_{21}^8 & \mathcal{F}_{22}^8 & \mathcal{F}_{23}^9  \\ \mathcal{F}_{31}^7 & \mathcal{F}_{32}^7 & \mathcal{F}_{33}^8 \end{bmatrix},
-```
-where $\mathcal{F}^i$ denotes an $i$-th degree polynomial.
+Owing to the extremely simple expression of each sub-transformation, we can represent each element of a homography by the input variables ($16$ coordinates provided by four point correspondences) in 7th to 9th polynomial form.
 
 ### Homographies Mapping A Rectangle to A Quadrangle
 All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous methods treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA (TensorACA) for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 14 vector operations (44 FLOPs).
+
+$\mathbf{Note:}$ When calculating homography in a very common computer vision task—QR code detection, FLOPs are further reduced to 29. This drastic reduction lowers energy consumption, given the massive number of QR code scans performed daily.
 
 <!-- <div align="center"> <img src="imgs/ACA-rect.png" width = 60% /> </div> -->
 
