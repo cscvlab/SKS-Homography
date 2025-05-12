@@ -10,7 +10,9 @@ Previous four-point homography computation methods exhibit algebraic redundancy 
 **Links:**  [[Paper]](https://arxiv.org/pdf/2402.18008) 
 [[Project Page]](http://www.cscvlab.com/research/SKS-Homography/) 
 [[ShortVideo(bilibili)]](https://www.bilibili.com/video/BV1iLZ3YyEnR/)
-[[ShortVideo(YouTube)]](https://youtu.be/jVQ-6ub70K0)
+[[LongVideo(bilibili)]](https://www.bilibili.com/video/BV1f3E7zCE3N/)
+[[SV(YouTube)]](https://youtu.be/jVQ-6ub70K0)
+[[LV(YouTube)]](https://youtu.be/IFZ9jrLvZok)
 
 ## SKS Decomposition
 SKS decomposes a 2D homography into three sub-transformations: 
