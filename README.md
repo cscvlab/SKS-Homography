@@ -69,9 +69,13 @@ Affine transformations, as one kind of degenerate projective transformations, ca
 ```bibtex
 @article{Cai2025SKS,
   title={Fast and Interpretable 2D Homography Decomposition: Similarity-Kernel-Similarity and Affine-Core-Affine Transformations},
-  author={Shen Cai, Zhanhao Wu, Lingxi Guo, Jiachun Wang, Siyu Zhang, Junchi Yan, Shuhan Shen},
-  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)},
+  author={Cai, Shen and Wu, Zhanhao and Guo, Lingxi and Wang, Jiachun and Zhang, Siyu and Yan, Junchi and Shen, Shuhan},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)}, 
   year={2025},
+  volume={},
+  number={},
+  pages={1-18},
+  doi={10.1109/TPAMI.2025.3568582}}
 }
 ```
 
