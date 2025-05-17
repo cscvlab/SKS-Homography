@@ -38,7 +38,7 @@ In SKS and ACA, each sub-transformation and even each parameter carry geometric 
 SKS and ACA exhibit many unique properties in algebra, some of which are shown below.
 
 ### No Need to Construct A Linear System of Equations
-Previous 4-point homography methods (NDLT-SVD, HO-SVD, GPT-LU, RHO-GE) follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU,
+Previous 4-point homography methods follow the same way to construct a square system of linear equations, followed by solving it through well-established matrix factorization methods, such as SVD and LU,
 ```math
 \mathbf{A}_{8*9}*\mathbf{h}_{9*1}=\mathbf{0} \quad \mathcal{or} \quad \mathbf{A}_{8*8}*\mathbf{h}_{8*1}=\mathbf{b}_{8*1}.
 ```
@@ -54,7 +54,7 @@ FLOPs of SKS and ACA for computing 4-point homographies up to a scale are 157 an
 Owing to the extremely simple expression of each sub-transformation, we can represent each element of a homography by the input variables ($16$ coordinates provided by four point correspondences) in 7th to 9th polynomial form.
 
 ### Homographies Mapping A Rectangle to A Quadrangle
-All previous 4-point offsets based deep homography methods compute the homography mapping a square (UDHN_RAL18, DHDS_CVPR20, LocalTrans_ICCV21, DAMG_TCSVT22, IDHN_CVPR22) or rectangle (UDIS_TIP21,CAUDHN_ECCV20) in source image to a general quadrangle in target image. However, the previous methods treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA (TensorACA) for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 14 vector operations (44 FLOPs).
+All previous 4-point offsets based deep homography methods compute the homography mapping a square or rectangle in source image to a general quadrangle in target image. However, the previous methods treat the special rectanlge as a general quadrangle and no simplification is conducted. In SKS and ACA, homographies mapping a rectangle (or square) to a quadrangle are simplified straightforwardly. The complete steps of the tensorized ACA (TensorACA) for a rectangle are illustrated in the following Algorithm with only 15 vector operations (47 FLOPs). Consequently, FLOPs for a source square will be reduced to 14 vector operations (44 FLOPs).
 
 $\mathbf{Note:}$ When calculating homography in a very common computer vision task—QR code detection, FLOPs are further reduced to 29. This drastic reduction lowers energy consumption, given the massive number of QR code scans performed daily.
 
