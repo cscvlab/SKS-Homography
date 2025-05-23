@@ -75,7 +75,7 @@ Affine transformations, as one kind of degenerate projective transformations, ca
   volume={},
   number={},
   pages={1-18},
-  doi={10.1109/TPAMI.2025.3568582}}
+  doi={10.1109/TPAMI.2025.3568582}
 }
 ```
 
