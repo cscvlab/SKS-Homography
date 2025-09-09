@@ -72,9 +72,9 @@ Affine transformations, as one kind of degenerate projective transformations, ca
   author={Cai, Shen and Wu, Zhanhao and Guo, Lingxi and Wang, Jiachun and Zhang, Siyu and Yan, Junchi and Shen, Shuhan},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI)}, 
   year={2025},
-  volume={},
-  number={},
-  pages={1-18},
+  volume={47},
+  number={9},
+  pages={7558-7576},
   doi={10.1109/TPAMI.2025.3568582}
 }
 ```
